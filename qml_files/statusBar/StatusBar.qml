@@ -30,7 +30,8 @@ Rectangle {
         }
         Text {
             id: statusbarInfoLabelText
-            text: qsTr("Status Bar Info.")
+            //text: qsTr("Status Bar Info.")
+            text: appContainer.statusBarMessage
             color: "#3a5a7b"
             anchors.fill: parent
             clip: true
@@ -43,7 +44,7 @@ Rectangle {
     ///////////////////////////////////
     Label {
         id: statusBarSoftwareDetails
-        text: qsTr("Voyager | 2024 | Coded by: Enes AKKUS")
+        text: qsTr("Voyager | 2024 | Coded by: Ethem Enes")
         color: "#3a5a7b"
         anchors {
             top: parent.top

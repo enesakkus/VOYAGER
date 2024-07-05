@@ -5,6 +5,9 @@ import QtGraphicalEffects 1.15
 import "buttons/windowControl"
 import "TopBar"
 import "StatusBar"
+import "NavigationInfoBar"
+import "LeftMenuBar"
+import "ContentArea"
 
 Window {
     id: mainWindow
@@ -25,6 +28,8 @@ Window {
     property int windowStatus: 0
     property int lastWindowStatus: 0
 
+    //~~Action for minimizing Big screen to see Big window again when reactive it~~//
+    /////////////////////////////////////////////////////////////////////////////////
     onActiveChanged: {
         if(mainWindow.active == true & lastWindowStatus == 1){
             mainWindow.showMaximized()
@@ -53,12 +58,60 @@ Window {
                 rightMargin:1
             }
 
+            //~~App Top Bar QML File~~//
+            ////////////////////////////
             TopBar {
                 id: topBarInMain
             }
 
+            //~~App Status Bar QML File~~//
+            ///////////////////////////////
+            property string statusBarMessage : "Status Bar Info."
             StatusBar {
                 id: statusBarInMain
+            }
+
+            //~~App Content Rectangle~~//
+            /////////////////////////////
+            Rectangle {
+                id: contentRectangle
+
+                color: "#00000000"
+                anchors {
+                    top: topBarInMain.bottom
+                    bottom: statusBarInMain.top
+                    left: parent.left
+                    right: parent.right
+                }
+
+                //~~App Navigation Info Bar~~//
+                ///////////////////////////////
+                property string navigationString: "| HOME"
+                NavigationInfoBar {
+                    id: navigationInfoBarInMain
+                }
+
+                //~~App Left Menu Bar Background~~//
+                ////////////////////////////////////
+                LeftMenuBarBase {
+                    id: leftMenuBarBaseInMain
+                }
+
+                //~~App Left Menu Bar Expandable~~//
+                ////////////////////////////////////
+                property var anAccesibleItem    //~~To make accesible children item to parent's siblings~~//
+                LeftMenuBarExpandable {
+                    id: leftMenuBarExpandableInMain
+                }
+
+                //~~App Content Area~~//
+                ////////////////////////
+                property bool isMainPageVisible: false 
+                property bool isBoltGroupToolPageVisible: true
+                ContentArea {
+                    id: contentRectangleInMain
+                    clip: true
+                }
             }
         }
     }
